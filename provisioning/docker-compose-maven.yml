@@ -1,0 +1,13 @@
+version: "3.7"
+networks:
+  build:
+services:
+   maven:
+    image: maven:3.6.0-jdk-8
+    working_dir: /ci-cd-demo
+    volumes:
+     - ../:/ci-cd-demo
+     - ~/m2/repository:/root/.m2/repository
+    command: mvn -Pprod -DskipTests=true package -f pom.xml
+    networks:
+     - build

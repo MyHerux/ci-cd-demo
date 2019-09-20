@@ -1,0 +1,25 @@
+version: "3.7"
+networks:
+  netdci:
+
+services:
+  ci-cd-demo:
+    build:
+      context: ./
+      dockerfile: ./provisioning/Dockerfile
+      args:
+        - project=ci-cd-demo
+        - profile=prod
+    image: skycitygalaxy/ci-cd-demo
+    environment:
+      - project=ci-cd-demo
+      - profile=prod
+      - X_TEST_CONFIG=xu
+    volumes:
+      - /opt/logs/ci-cd-demo/:/opt/ci-cd-demo/logs/
+      - /etc/hosts:/etc/hosts
+    ports:
+      - 17001:8080
+    networks:
+      - netdci
+    restart: always
